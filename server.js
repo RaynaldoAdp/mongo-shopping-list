@@ -37,6 +37,22 @@ exports.runServer = runServer;
 
 var Item = require('./models/item');
 
+/*var checkDatabaseName = function(index){
+    Item.find(function(err, items) {
+        console.log(items[index].name);
+    });
+};
+
+checkDatabaseName(0);*/
+
+/*var checkDatabaseName = function(index){
+    Item.find(function(err, items) {
+        return items[index].name;
+    });
+};
+
+console.log(checkDatabaseName(0));*/
+
 var storage = {
     find: function(callback){
       Item.find(callback);  

@@ -11,7 +11,18 @@ var app = server.app;
 
 chai.use(chaiHttp);
 
+
+/*var checkDatabaseName = function(index){
+    Item.find(function(err, items) {
+        return(items[index].name);
+    });
+};*/
+
+
+
 describe('Shopping List', function() {
+    
+    
     before(function(done) {
         server.runServer(function() {
             Item.create({name: 'Broad beans'},
@@ -66,7 +77,7 @@ describe('Shopping List', function() {
             });
     });
     
-    it('should delete an item on delete', function(done){
+/*    it('should delete an item on delete', function(done){
         chai.request(app)
             .delete('/items/3')
             .send({'name':'durian', '_id':'3'})
@@ -104,7 +115,7 @@ describe('Shopping List', function() {
     it('should return error when PUTing without body data');
     it('should return error when PUTing with something other than valid JSON');
     it('should return error when DELETEing an ID that does not exist');
-    it('should return error when DELETEing without an ID in the endpoint');
+    it('should return error when DELETEing without an ID in the endpoint');*/
 
     
 });
