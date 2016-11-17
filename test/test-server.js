@@ -11,15 +11,6 @@ var app = server.app;
 
 chai.use(chaiHttp);
 
-
-/*var checkDatabaseName = function(index){
-    Item.find(function(err, items) {
-        return(items[index].name);
-    });
-};*/
-
-
-
 describe('Shopping List', function() {
     
     
@@ -56,7 +47,8 @@ describe('Shopping List', function() {
                 res.body[0].name.should.equal('Broad beans');
                 res.body[1].name.should.equal('Tomatoes');
                 res.body[2].name.should.equal('Peppers');
-                done();
+                done();  
+                
             });
     });
     
@@ -77,45 +69,95 @@ describe('Shopping List', function() {
             });
     });
     
-/*    it('should delete an item on delete', function(done){
-        chai.request(app)
-            .delete('/items/3')
-            .send({'name':'durian', '_id':'3'})
-            .end(function(err, res) {
-               should.equal(err, null);
-               res.should.have.status(200);
-               res.should.be.json;
-               res.body.should.be.a('string');
-               done();
-            });
+    it('should delete an item on delete', function(done){
+        Item.find(function(err, item){
+            var id = item[0]._id;
+            chai.request(app)
+                .delete('/items/' + id)
+                .end(function(err, res) {
+                   should.equal(err, null);
+                   res.should.have.status(200);
+                   res.should.be.json;
+                   res.body.should.have.property('name');
+                   res.body.should.have.property('_id');
+                   res.body.name.should.be.a('string');
+                   done();
+                });
+        });
     });
 
     
     it('should edit an item on put', function(done){
+        Item.find(function(err, item){
+            var id = item[0]._id;
+            chai.request(app)
+                .put('/items/' + id)
+                .send({'name':'apple'})
+                .end(function(err, res) {
+                    should.equal(err, null);
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.body.should.have.property('name');
+                    res.body.should.have.property('_id');
+                    res.body.name.should.be.a('string');
+                    done();
+                });
+        });
+    });
+    
+    it('should return error when POSTing without body data', function(done){
         chai.request(app)
-            .put('/items/1')
-            .send({'name':'apple', '_id': 1})
-            .end(function(err, res) {
-                should.equal(err, null);
-                res.should.have.status(200);
-                res.should.be.json;
-                res.body.should.be.a('string');
+            .post('/items')
+            .end(function(err, res){
+                should.equal(err,err);
                 done();
             });
     });
     
+    it('should return error when POSTing with something other than valid JSON', function(done){
+        chai.request(app)
+            .post('/items')
+            .send({'flower': 'durian'})
+            .end(function(err, res){
+                should.equal(err,err);
+                done();
+            });
+    });
     
+
+    it('should return error when PUTing without body data', function(done){
+        Item.find(function(err, item){
+            var id = item[0]._id;
+            chai.request(app)
+                .put('/items/' + id)
+                .end(function(err, res) {
+                    should.equal(err, err);
+                    done();
+                });
+        });
+    });
     
-    it('should add item when POSTing to ID that exists');
-    it('should return error when POSTing without body data');
-    it('should return error when POSTing with something other than valid JSON');
-    it('should return error when PUTing with an ID in the endpoint');
-    it('should return error when PUTing with with different ID in endpoint than the body');
-    it('should add item when PUTing to ID that does not exist');
-    it('should return error when PUTing without body data');
-    it('should return error when PUTing with something other than valid JSON');
-    it('should return error when DELETEing an ID that does not exist');
-    it('should return error when DELETEing without an ID in the endpoint');*/
+    it('should return error when PUTing with something other than valid JSON', function(done){
+        Item.find(function(err, item){
+            var id = item[0]._id;
+            chai.request(app)
+                .put('/items/' + id)
+                .send({'flower': 'durian'})
+                .end(function(err, res) {
+                    should.equal(err, err);
+                    done();
+                });
+        });
+    });
+
+    it('should return error when DELETEing without an ID in the endpoint', function(done){
+        chai.request(app)
+            .delete('/items')
+            .end(function(err, res){
+                should.equal(err,err);
+                done();
+            });
+    });
 
     
 });

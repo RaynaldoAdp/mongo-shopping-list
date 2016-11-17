@@ -37,22 +37,6 @@ exports.runServer = runServer;
 
 var Item = require('./models/item');
 
-/*var checkDatabaseName = function(index){
-    Item.find(function(err, items) {
-        console.log(items[index].name);
-    });
-};
-
-checkDatabaseName(0);*/
-
-/*var checkDatabaseName = function(index){
-    Item.find(function(err, items) {
-        return items[index].name;
-    });
-};
-
-console.log(checkDatabaseName(0));*/
-
 var storage = {
     find: function(callback){
       Item.find(callback);  
@@ -101,7 +85,7 @@ app.delete('/items/:id', function(req, res){
     });
 });
 
-app.put('/items/id', function(req, res){
+app.put('/items/:id', function(req, res){
     storage.edit(req.params.id, req.body.name, function(err, item){
         if(err){
             return res.status(500).json({
@@ -111,57 +95,6 @@ app.put('/items/id', function(req, res){
         res.status(200).json(item);
     });
 });
-/*app.get('/items', function(req, res) {
-    Item.find(function(err, items) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        res.json(items);
-    });
-});
-
-app.post('/items', function(req, res) {
-    Item.create({
-        name: req.body.name,
-    }, function(err, item) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        res.status(201).json(item);
-    });
-});
-
-app.delete('/items/:id', function(req, res) {
-    Item.findOneAndRemove({
-        _id: req.params.id
-    }, function(err, item){
-        if(err){
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        res.status(200).json(item);
-    });
-});
-
-app.put('/items/:id', function(req,res) {
-    Item.findOneAndUpdate({
-        _id: req.params.id
-    }, {name: req.body.name}
-    , function(err, item){
-        if(err){
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        res.status(200).json(item);
-    });
-});*/
-
 
 app.use('*', function(req, res) {
     res.status(404).json({
