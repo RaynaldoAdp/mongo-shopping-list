@@ -8,3 +8,10 @@ addons:
     - mongodb-3.2-precise
     packages:
     - mongodb-org-server
+deploy:
+  provider: heroku
+  api_key:
+    secure: IPgS5ILWmFiN8LTWqRsrFYG0jLwQznBduSHu3sH3om1cOsybQtHUXrJ8aaC75N0FLLm8NK3XA7jiWSjwGb/kk3SEEd/lfr55KWZbjppnN2ndIk7mKOCpG0oEbgXI55ENJYtaj+XAV7pPCSYAeUpUxjN4TA4TyAvd7K6jN+zIyH9RWbRddkr5GmZ+lBkAQgP3FXkczBH9P5k/QSysqytRJT3yi3qxvGmBjBpwaEDKwrmLc+1mTHjGltcvJxXclrpF9ZCs/4bmweoC+/mav2ZixHMKDvoxnzW4eiFYe91khVaL1w/7ItF9ePCgvPIag4Y4cwJXEI0YF6F+97ALPs+BKuAISB6ci/ldKIqeDj7ZUOkz4oSTFM5m6jGldO4QUziHr/Vbcptmr8CidvHNAJBfGhU6LX8jyN1L01x9z/UOAa/8vZQKsDhLW9jk8oC2sPE5VEzJwQguhts+hREAR5rqzR+yEY53FIsbkp9j2Yz7j8p+yZpfLwC2oAKIFn3HVb7j39LeDa2M77yfQ3etdpoWcf0eBGNMYQQkzY8vE4rqAsk/EfB6OXbEWp10wJ6y62tUqqlEyEzxkCDGc9ojuROQG8Lygpr2AU7OnwazCqlE6fEzw38DiptligUTaKbyQCRoXHG/0a1Wj0xcSTJ4osdQoDy9JP7DsXRV5fibtvrXAVg=
+  app: fathomless-beyond-67252
+  on:
+    repo: RaynaldoAdp/mongo-shopping-list
